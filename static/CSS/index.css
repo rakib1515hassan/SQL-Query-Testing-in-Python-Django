@@ -1,0 +1,42 @@
+body{
+    height: 100vn;
+    display: flex;
+    flex-direction: column;
+}
+
+nav{
+    padding: 0 60px;
+}
+
+footer {
+    background-color: rgb(28, 23, 23);
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.main {
+    width: 90vw;
+    margin: 0 auto;
+    padding: 15px 15px;
+    min-height: calc(100vh - 61.99px 41.97px - 57px); /* Adjust the value based on your header and footer heights */
+    margin-bottom: 50px;
+}
+
+.navbar-brand{
+    font-size: 45px; 
+    font-family: Gabriola;
+    /* font-family: Fantasy; */
+}
+
+.nav_container{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.search{
+    background: rgb(42, 213, 127);
+    color: white;
+}
