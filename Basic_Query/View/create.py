@@ -3,7 +3,7 @@ from django.db import connection
 from datetime import datetime
 import uuid
 from Basic_Query.models import Student, Teacher
-
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -27,35 +27,39 @@ def add_student(request):
         city = request.POST.get('s_city')
         birth = request.POST.get('s_birth')
 
-        # Generate a UUID for the id field without hyphens
-        student_id = str(uuid.uuid4()).replace("-", "")
+        if not Student.objects.filter( roll = roll).exists():
 
-        # Parse the date_of_birth string to a datetime object
-        date_of_birth = datetime.strptime(birth, '%Y-%m-%d').date()
+            # Generate a UUID for the id field without hyphens
+            student_id = str(uuid.uuid4()).replace("-", "")
 
-        # Define the SQL query for inserting data into the Student table
-        sql_query = """
-            INSERT INTO basic_query_student (id, name, gender, s_class, roll, date_of_birth, age, city)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
+            # Parse the date_of_birth string to a datetime object
+            date_of_birth = datetime.strptime(birth, '%Y-%m-%d').date()
 
-        # Execute the SQL query with the data
-        with connection.cursor() as cursor:
-            cursor.execute(sql_query, (student_id, name, gender, s_class, roll, date_of_birth, age, city))
+            # Define the SQL query for inserting data into the Student table
+            sql_query = """
+                INSERT INTO basic_query_student (id, name, gender, s_class, roll, date_of_birth, age, city)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """
 
-        """ NOTE Data save by ORM
-        student = Student(
-            name=name,
-            gender=gender,
-            s_class=s_class,
-            roll=roll,
-            age=age,
-            city=city,
-            date_of_birth=date_of_birth
-        )
-        student.save()
-        """
-    
+            # Execute the SQL query with the data
+            with connection.cursor() as cursor:
+                cursor.execute(sql_query, (student_id, name, gender, s_class, roll, date_of_birth, age, city))
+
+            """ NOTE Data save by ORM
+            student = Student(
+                name=name,
+                gender=gender,
+                s_class=s_class,
+                roll=roll,
+                age=age,
+                city=city,
+                date_of_birth=date_of_birth
+            )
+            student.save()
+            """
+            messages.success(request, "Successfully add a record.")
+        else:
+            messages.error(request, "This roll already exist.")
 
    
     return render(request, 'Data_Insurt/add_student.html')

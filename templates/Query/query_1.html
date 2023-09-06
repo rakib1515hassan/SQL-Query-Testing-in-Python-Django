@@ -7,13 +7,13 @@
 <link rel="stylesheet" href="{% static 'CSS\query.css' %}">
 <style>
     .wi{
-        width: 50px;
+        width: 60px;
     }
 </style>
 {% endblock css %}
 <!------------------------------------- Contant Start ----------------------------------->
 {% block body %}
-<div class="col-md-12">
+<div class="col-md-12" style="margin-bottom: 100px;">
     <h3 class="text-center" style="color: #3214a9;"><b>To see SQL Query click on Go button</b></h3>
     <div class="table-responsive">
         {% include 'message.html' %}
@@ -52,12 +52,12 @@
                     <td>3</td>
                     <form action="{% url 'ORM_limit' %}" method="POST">
                         {% csrf_token %}
-                        <td class="fw-bold text-success">
-                            limit
-                            <input type="number" class="wi" name="start" placeholder="start" required>,
+                        <td class="fw-bold text-success">limit</td>
+                        <td class="fw-bold">Student.objects.all()[
+                            <input type="number" class="wi" name="start" placeholder="start" required>
+                            :
                             <input type="number" class="wi" name="end" placeholder="end" required>
-                        </td>
-                        <td class="fw-bold">Student.objects.all()[2:5]</td>
+                            ]</td>
     
                         <td>
                             <button type="submit" class="btn btn-danger btn-sm">Go</button>
@@ -99,7 +99,7 @@
                     <td>6</td>
                     <form action="{% url 'ORM_filter_gt_lt' %}" method="POST">
                         {% csrf_token %}
-                        <td class="fw-bold text-danger">filter</td>
+                        <td class="fw-bold text-danger">filter(<, <=, >, >=)</td>
                         <td class="fw-bold">Student.objects.filter( age__
                             <select name="lookups" required >
                                 <option selected disabled>select</option>
@@ -117,6 +117,127 @@
                     </form>    
                 </tr>
                 
+                <tr>
+                    <td>7</td>
+                    <form action="{% url 'ORM_filter_and_or' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( &, | )</td>
+                        <td class="fw-bold">Student.objects.filter( Q(age__gte =
+                            <input type="number" class="wi" name="from" placeholder="from" required>
+                            ) 
+                            <select name="operator" required >
+                                <option selected disabled>select</option>
+                                <option value="&"> & (and)</option>
+                                <option value="|"> | (or)</option>
+                            </select>
+                            Q(age__lte =
+                            <input type="number" class="wi" name="to" placeholder="to" required>
+                            )
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>8</td>
+                    <form action="{% url 'ORM_filter_between' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( range )</td>
+                        <td class="fw-bold">Student.objects.filter( age__range=(
+                            <input type="number" class="wi" name="from" placeholder="from" required>
+                            ,
+                            <input type="number" class="wi" name="to" placeholder="to" required>
+                            )
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>9</td>
+                    <form action="{% url 'ORM_filter_not' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( ~ )</td>
+                        <td class="fw-bold">
+                            Student.objects.filter(Q(s_class = 
+                            <select name="class" required >
+                                <option selected disabled>class</option>
+                                <option value="vi">vi</option>
+                                <option value="vii">vii</option>
+                                <option value="viii">viii</option>
+                                <option value="ix">ix</option>
+                                <option value="x">x</option>
+                            </select>
+                            ) & ~Q(gender=
+                            <select name="gender" required >
+                                <option selected disabled>gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Others">Others</option>
+                            </select>
+                            ))
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td class="fw-bold text-danger">filter( &, | )</td>
+                    <td class="fw-bold">Student.objects.filter( Q(city = 'Dhaka') & (Q(gender= 'Female') | Q(age__gte = 12)) )</td>
+
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_and_or_2' %}">
+                        <span class="glyphicon glyphicon-trash">Go</span></a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>11</td>
+                    <td class="fw-bold text-danger">filter( in )</td>
+                    <td class="fw-bold">Student.objects.filter(city__in = ['Noakhali', 'Chandpur'] )</td>
+
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_in' %}">
+                        <span class="glyphicon glyphicon-trash">Go</span></a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>12</td>
+                    <td class="fw-bold text-danger">filter( iexact )</td>
+                    <td class="fw-bold">Student.objects.filter(name__iexact = 'rijon')</td>
+
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_iexact' %}">
+                        <span class="glyphicon glyphicon-trash">Go</span></a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>13</td>
+                    <td class="fw-bold text-danger">filter( contains )</td>
+                    <td class="fw-bold">Student.objects.filter(name__contains = 'Md')</td>
+
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_contains' %}">
+                        <span class="glyphicon glyphicon-trash">Go</span></a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>14</td>
+                    <td class="fw-bold text-danger">filter( icontains )</td>
+                    <td class="fw-bold">Student.objects.filter(name__icontains = 'ki')</td>
+
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_icontains' %}">
+                        <span class="glyphicon glyphicon-trash">Go</span></a>
+                    </td>
+                </tr>
                 
                 
 
