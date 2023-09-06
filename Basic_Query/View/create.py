@@ -18,7 +18,7 @@ def Result(request):
 
 
 def add_student(request):
-    if request.method == "POST":
+    if request.method == "POST" and 'add_std' in request.POST :
         name = request.POST.get('s_name')
         gender = request.POST.get('s_gender')
         s_class = request.POST.get('s_class')
@@ -55,6 +55,14 @@ def add_student(request):
         )
         student.save()
         """
+    
+
+   
+    return render(request, 'Data_Insurt/add_student.html')
+
+
+
+def all_student(request):
 
     # Execute a raw SQL query to select all rows from the Student table
     students_data = Student.objects.raw("SELECT * FROM basic_query_student")  # Replace 'yourapp_student' with your actual table name
@@ -77,10 +85,11 @@ def add_student(request):
     #     print("------------------")
     #     print("Student Name:", student.name)
     #     print("------------------")
-    
+
 
     data = {
-        'students_data': students_data,
-        }
+        'std_obj': students_data,
+        'total': Student.objects.all().count()
+    }
 
-    return render(request, 'Data_Insurt/add_student.html', data)
+    return render(request, 'all_students.html', data)

@@ -1,13 +1,14 @@
 {% extends "index.html" %}
 {% load static %}
-{% block title %}Result{% endblock title %}
+{% block title %}All Student{% endblock title %}
+{% block st_active %} active {% endblock st_active %}
 
 {% block body %}
     <div class="col-md-12">
-        <h2 class="text-center" style="margin-top: 50px; color: #3e8e41;">
-            <b>SQL Query Result</b>
+        <h2 class="text-center text-success">
+            <b>All Student List (<span class="text-danger">{{total}}</span>)</b> 
         </h2>
-        <p class="" style="font-size: 20px;"><b>Description:-</b> {{descripetion}} </p>
+
         <div class="table-responsive">
 
             <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -47,8 +48,6 @@
                 </tbody>
             </table>
         </div>
-        <h1 class="text-center" style=" color: #D25380;"><b><u>SQL Querry</u></b></h1>
-        <h4 class="text-center" style="margin-top: 15px; margin-bottom: 100px;">{{SQL_querry}}</h4>
     </div>
 
 {% endblock body %}

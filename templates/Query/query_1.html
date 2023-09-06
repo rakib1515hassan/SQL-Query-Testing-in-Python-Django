@@ -14,7 +14,7 @@
 <!------------------------------------- Contant Start ----------------------------------->
 {% block body %}
 <div class="col-md-12">
-    <h3 class="text-center" style="color: #3214a9;"><b>SQL Query</b></h3>
+    <h3 class="text-center" style="color: #3214a9;"><b>To see SQL Query click on Go button</b></h3>
     <div class="table-responsive">
         {% include 'message.html' %}
         <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -75,7 +75,47 @@
                     </td>
                 </tr>
                 
-                
+                <tr>
+                    <td>5</td>
+                    <form action="{% url 'ORM_filter' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter</td>
+                        <td class="fw-bold">Student.objects.filter(gender = "
+                                <select required name="gender">
+                                    <option selected Disabled>select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            ")</td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>6</td>
+                    <form action="{% url 'ORM_filter_gt_lt' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter</td>
+                        <td class="fw-bold">Student.objects.filter( age__
+                            <select name="lookups" required >
+                                <option selected disabled>select</option>
+                                <option value="lt">lt (<)</option>
+                                <option value="lte">lte (<=)</option>
+                                <option value="gt">gt (>)</option>
+                                <option value="gte">gte (>=)</option>
+                            </select>
+                            = <input type="number" class="wi" name="age" placeholder="age" required> )
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
                 
                 
                 

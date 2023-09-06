@@ -8,6 +8,7 @@ urlpatterns = [
     path('Result/', create.Result, name='Result'),
 
     path('add-student/', create.add_student, name='add_student'),
+    path('all-student/', create.all_student, name='all_student'),
 
 
 
@@ -16,6 +17,8 @@ urlpatterns = [
     path('orm-values-distinct/', views.ORM_values_distinct, name='ORM_values_distinct'),
     path('orm-limit/', views.ORM_limit, name='ORM_limit'),
     path('orm-order_by/', views.ORM_order_by, name='ORM_order_by'),
+    path('orm-filter/', views.ORM_filter, name='ORM_filter'),
+    path('orm-filter-gt-ls/', views.ORM_filter_gt_lt, name='ORM_filter_gt_lt'),
 ]
 
 

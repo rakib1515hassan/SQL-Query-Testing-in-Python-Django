@@ -133,9 +133,87 @@ WHERE clause এর সাহায্যে একটি নির্দিষ�
 
 SELECT column_list
 FROM table_name
-WHER condition;
+WHERE condition;
 
 """
+
+
+
+
+def ORM_filter(request):
+    gen = ''
+    if request.method == "POST":
+        gen = request.POST.get('gender')
+
+    ## ORM Query
+    # students_data = Student.objects.filter(gender = gen)
+
+
+    sql_query = f"SELECT * FROM basic_query_student WHERE gender = '{gen}' " 
+    students_data = Student.objects.raw(sql_query)
+
+    data = {
+            'std_obj': students_data,
+            'SQL_querry': students_data.query,
+            'descripetion': f"সম্পূর্ন Table থেকে কেবল মাত্র gender = {gen} কে আলদাকরে দেখানো হয়েছে।",
+        }    
+    return render(request, 'Result/result_1.html', data)
+    # return HttpResponse()
+
+
+
+def ORM_filter_gt_lt(request):
+    age = '10'
+    lookups = ''
+    if request.method == "POST":
+        age = request.POST.get('age')
+        if request.POST.get('lookups'):
+            lookups = request.POST.get('lookups')
+
+    condition = {}
+
+    ## ORM Query
+    # if age and lookups:
+    #     if lookups == 'gt':
+    #         condition['age__gt'] = age
+    #     elif lookups == 'gte':
+    #         condition['age__gte'] = age
+    #     elif lookups == 'lt':
+    #         condition['age__lt'] = age
+    #     elif lookups == 'lte':
+    #         condition['age__lte'] = age
+    # else:
+    #     condition['age__lte'] = age
+    
+    # students_data = Student.objects.filter(**condition) ## filter( age__lte = 10 )
+
+
+    ## SQL Query
+    if age and lookups:
+        if lookups == 'gt':
+            condition = ">"
+        elif lookups == 'gte':
+            condition = '>='
+        elif lookups == 'lt':
+            condition = '<'
+        elif lookups == 'lte':
+            condition = '<='
+    else:
+        condition = '>'
+
+    sql_query = f"SELECT * FROM basic_query_student WHERE age {condition} {age} " 
+    students_data = Student.objects.raw(sql_query)
+
+    data = {
+            'std_obj': students_data,
+            'SQL_querry': students_data.query,
+            'descripetion': f"সম্পূর্ন Table থেকে যারা age {condition} {age} condition টি কে মানে, সে সকল Data গুলোকে এখানে দেখানো হয়েছে।",
+        }    
+    return render(request, 'Result/result_1.html', data)
+
+
+
+
 
 
 
