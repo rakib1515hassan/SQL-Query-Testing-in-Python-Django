@@ -17,21 +17,22 @@
     <div class="d-flex justify-content-center">
         <div class="col-md-9" style="background-color: #f5f1f1; padding: 20px 30px; border-radius: 10px;">
             <h3 class="text-center fw-bold mb-3">Add New Student</h1>
-            {% include 'message.html' %}
-            <form method="POST">
+            <div id="alart_msg"></div>
+
+            <form id="add-student-form">
                 {% csrf_token %}
 
                 <div class="form-outline mb-4 d-flex">
                     <label class="form-label col-sm-3 col-form-label" for="form1Example1">Student Name</label>
                     <div class="col-sm-6">
-                        <input type="text" id="form1Example1" class="form-control" placeholder="Enter Name" name="s_name"/>
+                        <input type="text" id="s_name" class="form-control" placeholder="Enter Name"/>
                     </div>
                 </div>
 
                 <div class="form-outline mb-4 d-flex">
                     <label class="form-label col-sm-3 col-form-label" for="form1Example1">Student Gender</label>
                     <div class="col-sm-6">
-                        <select class="form-select" aria-label="Default select example" name="s_gender">
+                        <select class="form-select" aria-label="Default select example" id="s_gender">
                             <option selected Disabled  >Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -43,50 +44,62 @@
                 <div class="form-outline mb-4 d-flex">
                     <label class="form-label col-sm-3 col-form-label" for="form1Example1">Student Class</label>
                     <div class="col-sm-6">
-                        <select class="form-select" aria-label="Default select example" name="s_class">
+                        <select class="form-select" aria-label="Default select example" id="s_class">
                             <option selected Disabled  >Select Class</option>
                             <option value="vi">vi</option>
                             <option value="vii">vii</option>
                             <option value="viii">viii</option>
                             <option value="ix">ix</option>
                             <option value="x">x</option>
-                          </select>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-outline mb-4 d-flex">
                     <label class="form-label col-sm-3 col-form-label" for="form1Example1">Student Roll</label>
                     <div class="col-sm-6">
-                        <input type="number" id="form1Example1" class="form-control" placeholder="Enter Roll" name="s_roll"/>
+                        <input type="number" id="s_roll" class="form-control" placeholder="Enter Roll"/>
                     </div>
                 </div>
 
                 <div class="form-outline mb-4 d-flex">
                     <label class="form-label col-sm-3 col-form-label" for="form1Example1">Student Age</label>
                     <div class="col-sm-6">
-                        <input type="number" id="form1Example1" class="form-control" placeholder="Enter Age" name="s_age"/>
+                        <input type="number" id="s_age" class="form-control" placeholder="Enter Age"/>
                     </div>
                 </div>
 
                 <div class="form-outline mb-4 d-flex">
                     <label class="form-label col-sm-3 col-form-label" for="form1Example1">Student City</label>
                     <div class="col-sm-6">
-                        <input type="text" id="form1Example1" class="form-control" placeholder="Enter City" name="s_city"/>
+                        <select class="form-select" aria-label="Default select example" id="s_city">
+                            <option selected Disabled  >Select City</option>
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Chittagong">Chittagong</option>
+                            <option value="Barisal">Barisal</option>
+                            <option value="Khulna">Khulna</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                            <option value="Rangpur">Rangpur</option>
+                            <option value="Sylhet">Rajshahi</option>
+                            <option value="Mymensingh">Mymensingh</option>
+                            <option value="Cumilla">Cumilla</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-outline mb-4 d-flex">
                     <label class="form-label col-sm-3 col-form-label" for="form1Example1">Student Date of birth</label>
                     <div class="col-sm-6">
-                        <input type="date" id="form1Example1" class="form-control" name="s_birth"/>
+                        <input type="date" id="s_birth" class="form-control"/>
                     </div>
                 </div>
 
                 
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-block col-sm-5" name="add_std">Add Student</button>
+                    <button type="submit" class="btn btn-primary btn-block col-sm-5" >Add Student</button>
                 </div>
-              </form>
+
+            </form>
         </div>
     </div>
 
@@ -101,6 +114,12 @@
 
 {% block js %}
 
+<script>
+    var myData = {
+        studentUrl: "{% url 'add_student' %}",
+    };
+</script>
 
+<script src="{% static 'JS\student.js' %}"></script>
 
 {% endblock js %}

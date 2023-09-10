@@ -20,7 +20,7 @@
                         <th>Age</th>
                         <th>Class</th>
                         <th>Roll</th>
-                        <th>Date of birth</th>
+                        <th>Date of birth <small class="d-block">YYYY-MM-DD</small></th>
                         <th>Gender</th>
                         <th>Address</th>
                         <th>Delete</th>
@@ -35,7 +35,7 @@
                         <td>{{std.age}}</td>
                         <td>{{std.s_class}}</td>
                         <td>{{std.roll}}</td>
-                        <td>{{std.date_of_birth}}</td>
+                        <td>{{std.date_of_birth|date:"Y-m-d"}}</td>
                         <td>{{std.gender}}</td>
                         <td>{{std.city}}</td>
                         <td><a class="btn btn-danger btn-sm" href="">

@@ -4,6 +4,8 @@ from datetime import datetime
 import uuid
 from Basic_Query.models import Student, Teacher
 from django.contrib import messages
+from django.http import JsonResponse
+
 
 # Create your views here.
 def home(request):
@@ -18,7 +20,8 @@ def Result(request):
 
 
 def add_student(request):
-    if request.method == "POST" and 'add_std' in request.POST :
+    # if request.method == "POST" and 'add_std' in request.POST :
+    if request.method == "POST":
         name = request.POST.get('s_name')
         gender = request.POST.get('s_gender')
         s_class = request.POST.get('s_class')
@@ -57,10 +60,11 @@ def add_student(request):
             )
             student.save()
             """
-            messages.success(request, "Successfully add a record.")
+            response_data = {'message': 'Student added successfully', 'success': True}
         else:
-            messages.error(request, "This roll already exist.")
-
+            response_data = {'message': 'Employee ID already exists', 'success': False}
+            
+        return JsonResponse(response_data)
    
     return render(request, 'Data_Insurt/add_student.html')
 
@@ -96,4 +100,65 @@ def all_student(request):
         'total': Student.objects.all().count()
     }
 
-    return render(request, 'all_students.html', data)
+    return render(request, 'Data_Insurt/all_students.html', data)
+
+
+
+
+
+def add_teacher(request):
+    # if request.method == "POST" and 'add_teacher' in request.POST :
+    if request.method == "POST":
+        name       = request.POST.get('t_name')
+        emplyee_id = request.POST.get('t_emplyee_id')
+        city       = request.POST.get('t_city')
+        salary     = request.POST.get('t_salary')
+        join       = request.POST.get('t_join')
+
+        if Teacher.objects.filter( emplyee_id = emplyee_id).exists():
+            response_data = {'message': 'Employee ID already exists', 'success': False}
+
+        else:
+            # Generate a UUID for the id field without hyphens
+            id = str(uuid.uuid4()).replace("-", "")
+
+            # Parse the date_of_birth string to a datetime object
+            join = datetime.strptime(join, "%Y-%m-%dT%H:%M")
+
+            # Define the SQL query for inserting data into the Student table
+            sql_query = """
+                INSERT INTO basic_query_teacher (id, name, emplyee_id, city, salary, joiningDate )
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """
+
+            # Execute the SQL query with the data
+            with connection.cursor() as cursor:
+                cursor.execute(sql_query, (id, name, emplyee_id, city, salary, join))
+
+            response_data = {'message': 'Teacher added successfully', 'success': True}
+        return JsonResponse(response_data)
+
+    return render(request, 'Data_Insurt/add_teacher.html')
+
+
+
+
+
+
+
+def all_teacher(request):
+
+    ## NOTE For ORM
+    # teacher_data = Teacher.objects.all()
+
+
+    ## NOTE For SQL
+    teacher_data = Teacher.objects.raw("SELECT * FROM basic_query_teacher")
+
+
+    data = {
+        'teacher_obj': teacher_data,
+        'total': Teacher.objects.all().count()
+    }
+
+    return render(request, 'Data_Insurt/all_teacher.html', data)

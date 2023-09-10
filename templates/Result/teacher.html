@@ -16,30 +16,22 @@
                     <tr>
                         <th class="sn">No</th>
                         <th>Name</th>
-                        <th>Age</th>
-                        <th>Class</th>
-                        <th>Roll</th>
-                        <th>Date of birth <small class="d-block">YYYY-MM-DD</small></th>
-                        <th>Gender</th>
+                        <th>Teacher ID</th>
+                        <th>Salary</th>
                         <th>Address</th>
-                        <th>Delete</th>
+                        <th>Joing Date <small class="d-block">YYYY-MM-DD, HH:MM</small></th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    {% for std in std_obj %}
+                    {% for t in teacher_obj %}
                     <tr>
                         <td>{{forloop.counter}}</td>
-                        <td>{{std.name}}</td>
-                        <td>{{std.age}}</td>
-                        <td>{{std.s_class}}</td>
-                        <td>{{std.roll}}</td>
-                        <td>{{std.date_of_birth|date:"Y-m-d"}}</td>
-                        <td>{{std.gender}}</td>
-                        <td>{{std.city}}</td>
-                        <td><a class="btn btn-danger btn-sm" href="">
-                            <span class="glyphicon glyphicon-trash">Delete</span></a>
-                        </td>
+                        <td>{{t.name}}</td>
+                        <td>{{t.emplyee_id}}</td>
+                        <td>{{t.salary}}</td>
+                        <td>{{t.city}}</td>
+                        <td>{{t.joiningDate|date:"Y-m-d, g:i A"}}</td>
                     </tr>
                     {% endfor %}
 
