@@ -54,9 +54,9 @@
                         {% csrf_token %}
                         <td class="fw-bold text-success">limit</td>
                         <td class="fw-bold">Student.objects.all()[
-                            <input type="number" class="wi" name="start" placeholder="start" required>
+                            <input type="number" class="wi" name="start" placeholder="start" value="0" required>
                             :
-                            <input type="number" class="wi" name="end" placeholder="end" required>
+                            <input type="number" class="wi" name="end" placeholder="end" value="5" required>
                             ]</td>
     
                         <td>
@@ -82,9 +82,9 @@
                         <td class="fw-bold text-danger">filter</td>
                         <td class="fw-bold">Student.objects.filter(gender = "
                                 <select required name="gender">
-                                    <option selected Disabled>select gender</option>
+                                    <!-- <option selected Disabled>select gender</option> -->
                                     <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                    <option selected value="Female">Female</option>
                                     <option value="Others">Others</option>
                                 </select>
                             ")</td>
@@ -102,13 +102,13 @@
                         <td class="fw-bold text-danger">filter(<, <=, >, >=)</td>
                         <td class="fw-bold">Student.objects.filter( age__
                             <select name="lookups" required >
-                                <option selected disabled>select</option>
-                                <option value="lt">lt (<)</option>
+                                <!-- <option selected disabled>select</option> -->
+                                <option selected value="lt">lt (<)</option>
                                 <option value="lte">lte (<=)</option>
                                 <option value="gt">gt (>)</option>
                                 <option value="gte">gte (>=)</option>
                             </select>
-                            = <input type="number" class="wi" name="age" placeholder="age" required> )
+                            = <input type="number" class="wi" name="age" placeholder="age" value="10" required> )
                         </td>
 
                         <td>
@@ -123,16 +123,16 @@
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( &, | )</td>
                         <td class="fw-bold">Student.objects.filter( Q(age__gte =
-                            <input type="number" class="wi" name="from" placeholder="from" required>
+                            <input type="number" class="wi" name="from" placeholder="from" value="10" required>
                             ) 
                             <select name="operator" required >
-                                <option selected disabled>select</option>
-                                <option value="&"> & (and)</option>
+                                <!-- <option selected disabled>select</option> -->
+                                <option selected value="&"> & (and)</option>
                                 <option value="|"> | (or)</option>
                             </select>
                             Q(age__lte =
-                            <input type="number" class="wi" name="to" placeholder="to" required>
-                            )
+                            <input type="number" class="wi" name="to" placeholder="to" value="14" required>
+                            ) )
                         </td>
 
                         <td>
@@ -147,9 +147,9 @@
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( range )</td>
                         <td class="fw-bold">Student.objects.filter( age__range=(
-                            <input type="number" class="wi" name="from" placeholder="from" required>
+                            <input type="number" class="wi" name="from" placeholder="from" value="15" required>
                             ,
-                            <input type="number" class="wi" name="to" placeholder="to" required>
+                            <input type="number" class="wi" name="to" placeholder="to" value="20" required>
                             ))
                         </td>
 
@@ -177,8 +177,8 @@
                         <td class="fw-bold">
                             Student.objects.filter(Q(s_class = 
                             <select name="class" required >
-                                <option selected disabled>class</option>
-                                <option value="vi">vi</option>
+                                <!-- <option selected disabled>class</option> -->
+                                <option selected value="vi">vi</option>
                                 <option value="vii">vii</option>
                                 <option value="viii">viii</option>
                                 <option value="ix">ix</option>
@@ -186,8 +186,8 @@
                             </select>
                             ) & ~Q(gender=
                             <select name="gender" required >
-                                <option selected disabled>gender</option>
-                                <option value="Male">Male</option>
+                                <!-- <option selected disabled>gender</option> -->
+                                <option selected value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Others">Others</option>
                             </select>
@@ -339,6 +339,22 @@
                             )
                         </td>
 
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+
+                <tr>
+                    <td>20</td>
+                    <form action="{% url 'ORM_filter_joining_date_week' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__week__lte = 
+                            <input type="number" class="wi" name="week" placeholder="week" value="13" required>
+                            )
+                        </td>
                         <td>
                             <button type="submit" class="btn btn-danger btn-sm">Go</button>
                         </td>

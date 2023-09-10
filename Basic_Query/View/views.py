@@ -624,14 +624,18 @@ def ORM_filter_joining__year_month_day(request):
     if request.method == "POST":
         _year  = request.POST.get('year')
         _month = request.POST.get('month')
-        _from  = request.POST.get('day-from')
-        _to    = request.POST.get('day-to')
+
+        if int(request.POST.get('day-from')) > 31 or int(request.POST.get('day-to')) <= 0:
+            _month = 1
+            _to    = 31
+        else:
+            _from  = request.POST.get('day-from')
+            _to    = request.POST.get('day-to')
 
     ## NOTE For ORM
     # teacher_data = Teacher.objects.filter(
     #         Q(joiningDate__year=_year) & Q(joiningDate__month=_month) & Q(joiningDate__day__range=(_from, _to))
     #     )
-
 
 
     ## NOTE For SQL
@@ -659,6 +663,43 @@ def ORM_filter_joining__year_month_day(request):
         }    
     return render(request, 'Result/teacher.html', data)
    
+
+
+
+
+def ORM_filter_joining_date_week(request):
+    _week = 13    ## 1 week = 12 * 4 = 48 কিংবা তার ও বেশি week 
+    if request.method == "POST":
+        if int(request.POST.get('week')) <=0 and int(request.POST.get('week')) <= 49:
+            _week = 1
+        else:
+            _week = request.POST.get('week')
+
+    ## NOTE For ORM
+    # teacher_data = Teacher.objects.filter( joiningDate__week__lte = _week )  
+
+    ## NOTE For SQL
+    sql_query = f"""
+            SELECT * 
+            FROM basic_query_teacher 
+            WHERE WEEK(joiningDate) <= {_week}
+
+        """
+    teacher_data = Student.objects.raw(sql_query)
+
+    data = {
+            'teacher_obj': teacher_data,
+            'SQL_querry': teacher_data.query,
+            'descripetion': f"""
+                            সম্পূর্ন Table থেকে যাদের Joining Date week = {_week} এর কম তাদেরকে দেখাবে।
+                            NOTE: 1 Year = 12 * 4 = 48 কিংবা তার ও বেশি Week হতে পারে। যেমন 13 weeks = 13/4 = 3 months (March)
+                            এর 1st week এর আগে যাদের Joint Date তাদের Record গুলো দেখাবে। 
+                        """,
+            'ORM_querry': f"Teacher.objects.filter( joiningDate__week__lte = {_week} ) ",
+        }    
+    return render(request, 'Result/teacher.html', data)
+
+
 
 
 

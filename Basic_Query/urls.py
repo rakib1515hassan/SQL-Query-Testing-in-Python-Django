@@ -36,6 +36,7 @@ urlpatterns = [
     path('orm-filter-joining_year-from-to/', views.ORM_filter_joining_from_to, name='ORM_filter_joining_from_to'),
     path('orm-filter-joining_month/', views.ORM_filter_joining__month__gte, name='ORM_filter_joining__month__gte'),
     path('orm-filter-joining_year_month_day/', views.ORM_filter_joining__year_month_day, name='ORM_filter_joining__year_month_day'),
+    path('orm-filter-joining_week/', views.ORM_filter_joining_date_week, name='ORM_filter_joining_date_week'),
 ]
 
 

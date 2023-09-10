@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="col-md-12">
-        <h2 class="text-center" style="margin-top: 50px; color: #3e8e41;">
+        <h2 class="text-center" style="margin-top: 10px; color: #3e8e41;">
             <b>SQL Query Result</b>
         </h2>
         <p class="" style="font-size: 20px;"><b>Description:-</b> {{descripetion}} </p>
@@ -29,7 +29,7 @@
                         <td>{{forloop.counter}}</td>
                         <td>{{t.name}}</td>
                         <td>{{t.emplyee_id}}</td>
-                        <td>{{t.salary}}</td>
+                        <td><span class="float-right">{{t.salary}}/-</span></td>
                         <td>{{t.city}}</td>
                         <td>{{t.joiningDate|date:"Y-m-d, g:i A"}}</td>
                     </tr>
