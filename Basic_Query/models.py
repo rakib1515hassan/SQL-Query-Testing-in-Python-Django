@@ -73,3 +73,22 @@ class ExamResult(models.Model):
 
 #     def __str__(self):
 #         return self.name
+
+
+
+
+
+# from tinymce.models import HTMLField
+
+class Query_Code(models.Model):
+    id          = models.UUIDField( primary_key = True, unique=True, default = uuid.uuid4, editable=False )
+    query_no    = models.CharField( max_length=100, unique= True )
+    title       = models.CharField( max_length=200, null=True, blank=True)
+
+    # SQL_query   = HTMLField()
+    SQL_query   = models.TextField( max_length='30000', null=True, blank=True)
+    # ORM_query   = HTMLField()
+    ORM_query   = models.TextField( max_length='30000', null=True, blank=True)
+
+    def __str__(self):
+        return self.query_no

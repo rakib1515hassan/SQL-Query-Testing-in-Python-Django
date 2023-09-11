@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from Basic_Query.models import Student, Teacher
+from Basic_Query.models import Student, Teacher, Query_Code
 from django.db import connection
 from django.http import HttpResponse
 from django.db.models import Q
@@ -7,11 +7,10 @@ from django.db.models import Q
 # Combine the conditions using reduce and the selected operator
 from functools import reduce
 
-def ORM_values(request):
+def Query_101(request):
 
     ## ORM Query
-    # students_data = Student.objects.values('id', 'name', 'city', 'roll')
-
+    students_data = Student.objects.values('id', 'name', 'city', 'roll')
 
     # Define the variables for columns you want to select dynamically
     selected_columns = ['id', 'name', 'city', 'roll'] # NOTE id (primary key) must be দেয়া লাগবে
@@ -45,6 +44,7 @@ def ORM_values(request):
     #     print("Student Name:", student.name)
     # print("------------------")
 
+
     # print("------------------")
     # print("Student Name:", students_data)
     # print("------------------")
@@ -54,6 +54,9 @@ def ORM_values(request):
             'SQL_querry': students_data.query,
             'descripetion': "সম্পূর্ন Table হতে name, roll and city column দেখাবে।",
             'ORM_querry': "Student.objects.values('id', 'name', 'city', 'roll')",
+
+            'query': Query_Code.objects.get( query_no = 'Query_101' ),
+  
         }    
     return render(request, 'Result/result_2.html', data)
 
@@ -64,7 +67,7 @@ def ORM_values(request):
 
 
 
-def ORM_values_distinct(request):
+def Query_102(request):
 
     ## ORM Query
     # students_data = Student.objects.values('city').distinct()
@@ -83,6 +86,8 @@ def ORM_values_distinct(request):
             'SQL_querry': "SELECT DISTINCT city FROM basic_query_student",
             'descripetion': "সম্পূর্ন Table হতে city column দেখাবে। কিন্তু কোন Duplicate value দেখাবে না।",
             'ORM_querry': "Student.objects.values('city').distinct()",
+
+            'query': Query_Code.objects.get( query_no = 'Query_102' ),
         }    
     return render(request, 'Result/result_2.html', data)
 
@@ -90,7 +95,7 @@ def ORM_values_distinct(request):
 
 
 
-def ORM_limit(request):
+def Query_103(request):
     start_point = ''
     end_point = ''
     if request.method == "POST":
@@ -100,7 +105,11 @@ def ORM_limit(request):
     ## ORM Query
     # students_data = Student.objects.all()[ start_point : end_point ]  ## [Start : End: Increment]
 
-    sql_query = f"SELECT * FROM basic_query_student LIMIT {start_point}, {end_point}"
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    LIMIT {start_point}, {end_point}
+                """
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -108,20 +117,28 @@ def ORM_limit(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table হতে কেবল মাত্র {start_point} হতে {end_point} এর আগ পর্যন্ত Data দেখাবে।",
             'ORM_querry': f"Student.objects.all()[ {start_point} : {end_point} ]",
+
+            'query': Query_Code.objects.get( query_no = 'Query_103' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
 
 
 
-def ORM_order_by(request):
+def Query_104(request):
     order_attribute = 'roll'
 
     ## ORM Query
     # students_data = Student.objects.all().order_by(order_attribute)
 
-    sql_query = f"SELECT * FROM basic_query_student ORDER BY {order_attribute} ASC"   # ASC না দিলেও, Ascending order defult থাকে।
-                                                                                      # DESC দিলে Decending order এ sort হবে।
+    # ASC না দিলেও, Ascending order defult থাকে।
+    # DESC দিলে Decending order এ sort হবে।
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student            
+                    ORDER BY {order_attribute} ASC 
+            
+                """                                                                                   
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -129,6 +146,8 @@ def ORM_order_by(request):
             'SQL_querry': students_data.query,
             'descripetion': "সম্পূর্ন Table কে Roll এর ওপর ভিতি করে Ascending order এ দেখাবে। তবে ASC এর যায়গায় DESC দিলে Decending order এ sort হবে।",
             'ORM_querry': f"Student.objects.all().order_by({order_attribute})",
+
+            'query': Query_Code.objects.get( query_no = 'Query_104' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -148,16 +167,19 @@ WHERE condition;
 
 
 
-def ORM_filter(request):
-    gen = ''
+def Query_105(request):
+    gen = 'Male'
     if request.method == "POST":
         gen = request.POST.get('gender')
 
     ## ORM Query
     # students_data = Student.objects.filter(gender = gen)
 
-
-    sql_query = f"SELECT * FROM basic_query_student WHERE gender = '{gen}' " 
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE gender = '{gen}'
+                """ 
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -165,15 +187,17 @@ def ORM_filter(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে কেবল মাত্র gender = {gen} কে আলদাকরে দেখানো হয়েছে।",
             'ORM_querry': f"Student.objects.filter(gender = {gen})",
+
+            'query': Query_Code.objects.get( query_no = 'Query_105' ),
         }    
     return render(request, 'Result/result_1.html', data)
     # return HttpResponse()
 
 
 
-def ORM_filter_gt_lt(request):
+def Query_106(request):
     age = '10'
-    lookups = ''
+    lookups = 'gt'
     if request.method == "POST":
         age = request.POST.get('age')
         if request.POST.get('lookups'):
@@ -194,7 +218,7 @@ def ORM_filter_gt_lt(request):
             conditio['age__lte'] = age
     else:
         conditio['age__lte'] = age
-    
+
     # students_data = Student.objects.filter(**conditio) ## filter( age__lte = 10 )
 
 
@@ -211,7 +235,11 @@ def ORM_filter_gt_lt(request):
     else:
         condition = '>'
 
-    sql_query = f"SELECT * FROM basic_query_student WHERE age {condition} {age} " 
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE age {condition} {age}
+                """ 
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -219,6 +247,8 @@ def ORM_filter_gt_lt(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যারা age {condition} {age} condition টি কে মানে, সে সকল Data গুলোকে এখানে দেখানো হয়েছে।",
             'ORM_querry': f"Student.objects.filter({conditio})",
+
+            'query': Query_Code.objects.get( query_no = 'Query_106' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -227,9 +257,9 @@ def ORM_filter_gt_lt(request):
 
 
 
-def ORM_filter_and_or(request):
-    _from = ''
-    _to   = ''
+def Query_107(request):
+    _from = '10'
+    _to   = '14'
     _operator = '&'
 
     if request.method == "POST":
@@ -258,8 +288,11 @@ def ORM_filter_and_or(request):
         operator = 'OR'
         txt = 'এর মধ্যে কিংবা এর বাহিরে। বাহিরের গুলোকেও দেখাবে কারন এখানে or ব্যবহার করা হয়েছে।'
 
-    sql_query = f"SELECT * FROM basic_query_student WHERE age >= {_from} {operator} age <= {_to}" 
-
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE age >= {_from} {operator} age <= {_to}
+                """ 
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -267,6 +300,8 @@ def ORM_filter_and_or(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যারা শুধু সে সকল Record কে দেখানো হয়েছে যাদের Age {_from} থেকে {_to} {txt}।",
             'ORM_querry': f"Student.objects.filter(Q(age__gte ={_from}) {_operator} Q(age__lte ={_to}))",
+
+            'query': Query_Code.objects.get( query_no = 'Query_107' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -275,9 +310,9 @@ def ORM_filter_and_or(request):
 
 
 
-def ORM_filter_between(request):
-    _from = ''
-    _to   = ''
+def Query_108(request):
+    _from = '15'
+    _to   = '20'
 
     if request.method == "POST":
         _from = request.POST.get('from')
@@ -287,8 +322,11 @@ def ORM_filter_between(request):
     # students_data = Student.objects.filter(age__range=(_from, _to))
 
     ## NOTE For SQL
-    sql_query = f"SELECT * FROM basic_query_student WHERE age BETWEEN {_from} AND {_to}" 
-
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE age BETWEEN {_from} AND {_to}
+                """ 
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -296,13 +334,15 @@ def ORM_filter_between(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যারা শুধু সে সকল Record কে দেখানো হয়েছে যাদের Age {_from} থেকে {_to} এর মধ্যে।",
             'ORM_querry': f"Student.objects.filter(age__range=({_from}, {_to})",
+
+            'query': Query_Code.objects.get( query_no = 'Query_108' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
 
 
 
-def ORM_filter_range_date(request):
+def Query_109(request):
     _from = '2000-01-01'
     _to   = '2023-12-30'
 
@@ -310,16 +350,20 @@ def ORM_filter_range_date(request):
     # students_data = Student.objects.filter( date_of_birth__range = ( _from, _to ) )
 
     ## NOTE For SQL
-    sql_query = f"SELECT * FROM basic_query_student WHERE date_of_birth BETWEEN '{_from}' AND '{_to}' "
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE date_of_birth BETWEEN '{_from}' AND '{_to}'
+                """
     students_data = Student.objects.raw(sql_query)
-
-
 
     data = {
             'std_obj': students_data,
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যারা শুধু সে সকল Record কে দেখানো হয়েছে যাদের Birth date {_from} থেকে {_to} এর মধ্যে।",
             'ORM_querry': f"Student.objects.filter( date_of_birth__range = ( {_from}, {_to} ))",
+
+            'query': Query_Code.objects.get( query_no = 'Query_109' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -327,7 +371,7 @@ def ORM_filter_range_date(request):
 
 
 
-def ORM_filter_not(request):
+def Query_110(request):
     _class  = 'x'
     _gender = 'Male'
 
@@ -344,8 +388,11 @@ def ORM_filter_not(request):
     #     )
 
     ## NOTE For SQL
-    sql_query = f"SELECT * FROM basic_query_student WHERE s_class = '{_class}' AND NOT gender = '{_gender}' " 
-
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE s_class = '{_class}' AND NOT gender = '{_gender}'
+                """ 
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -353,6 +400,8 @@ def ORM_filter_not(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে জাদের Class = {_class} এবং যাদের Gender = {_gender} না সে সকল Record গুলো দেখানো হয়েছে।",
             'ORM_querry': f"students_data = Student.objects.filter( Q(s_class={_class}) & (~Q(gender={_gender})) ))",
+
+            'query': Query_Code.objects.get( query_no = 'Query_110' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -371,7 +420,7 @@ WHERE condition;
 
 
 
-def ORM_filter_and_or_2(request):
+def Query_111(request):
     _city   = 'Dhaka'
     _gender = 'Female'
     _age    = 12
@@ -384,8 +433,13 @@ def ORM_filter_and_or_2(request):
     # )
 
     ## NOTE For SQL
-    sql_query = f"SELECT * FROM basic_query_student WHERE city = '{_city}' AND ( (gender = '{_gender}') OR (age >= {_age}) ) " 
-
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE city = '{_city}'
+                               AND
+                          ( (gender = '{_gender}') OR (age >= {_age}) )
+                """ 
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -397,6 +451,7 @@ def ORM_filter_and_or_2(request):
                                               &
                             (Q(gender={_gender}) | Q(age__gte = {_age}))
                             )""",
+            'query': Query_Code.objects.get( query_no = 'Query_111' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -404,7 +459,7 @@ def ORM_filter_and_or_2(request):
 
 
 
-def ORM_filter_in(request):
+def Query_112(request):
     _city   = ['Khulna', 'Chittagong']
 
     ## NOTE For ORM
@@ -416,7 +471,11 @@ def ORM_filter_in(request):
     city_list = [f"'{city}'" for city in _city]  # return = ["'Dhaka'", "'Noakhali'", "'Chandpur'"]
     column_list = ', '.join(city_list)           # return = 'Dhaka', 'Noakhali', 'Chandpur'
 
-    sql_query = f"SELECT * FROM basic_query_student WHERE city IN ({column_list}) " 
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE city IN ({column_list})
+                """ 
     students_data = Student.objects.raw(sql_query)
 
     data = {
@@ -424,6 +483,8 @@ def ORM_filter_in(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যাদের City {_city}, সে সকল Record গুলোকে দেখাবে।",
             'ORM_querry': f"Student.objects.filter(city__in={_city})",
+
+            'query': Query_Code.objects.get( query_no = 'Query_112' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -431,14 +492,18 @@ def ORM_filter_in(request):
 
 
 
-def ORM_filter_iexact(request):
+def Query_113(request):
     _name   = 'rijon'
 
     ## NOTE For ORM
     # students_data = Student.objects.filter(name__iexact = _name)
 
     ## NOTE For SQL
-    sql_query = 'SELECT * FROM basic_query_student WHERE name LIKE %s'
+    sql_query = """
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE name LIKE %s
+                """
     students_data = Student.objects.raw(sql_query, [_name + '%'])
     
 
@@ -447,36 +512,42 @@ def ORM_filter_iexact(request):
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যার নাম {_name}, তার সকল Record দেখাবে, তবে এটি case insensitive এই SQL Query ব্যেবহার করে start with ও বের কারা যায়।",
             'ORM_querry': f"Student.objects.filter(name__iexact = {_name})",
+
+            'query': Query_Code.objects.get( query_no = 'Query_113' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
 
 
 
-def ORM_filter_contains(request):
+def Query_114(request):
     _name   = 'Ra'
 
     ## NOTE For ORM
     # students_data = Student.objects.filter(name__contains = _name)
 
     ## NOTE For SQL
-    sql_query = f"SELECT * FROM basic_query_student WHERE name LIKE %s "
+    sql_query = f"""
+                    SELECT * 
+                    FROM basic_query_student 
+                    WHERE name LIKE %s
+                """
     students_data = Student.objects.raw(sql_query, ['%' + _name + '%'])
-
-
 
     data = {
             'std_obj': students_data,
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যার নাম এর মাঝে {_name} এটিকে পাবে, তার সকল Record দেখাবে, তবে এটি case insensitive",
             'ORM_querry': f"Student.objects.filter(name__contains = {_name})",
+
+            'query': Query_Code.objects.get( query_no = 'Query_114' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
 
 
 
-def ORM_filter_icontains(request):
+def Query_115(request):
     _name   = 'ki'
 
     ## NOTE For ORM
@@ -490,13 +561,13 @@ def ORM_filter_icontains(request):
         """
     students_data = Student.objects.raw(sql_query, ['%' + _name + '%'])
 
-
-
     data = {
             'std_obj': students_data,
             'SQL_querry': students_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যার নাম এর মাঝে {_name} এটিকে পাবে, তার সকল Record দেখাবে, তবে এটি case insensitive",
             'ORM_querry': f"Student.objects.filter(name__icontains = {_name})",
+            
+            'query': Query_Code.objects.get( query_no = 'Query_115' ),
         }    
     return render(request, 'Result/result_1.html', data)
 
@@ -514,7 +585,7 @@ SQL এর Constraint Auto Increment গুলো হল NOT NULL, UNIQUE, PRIMA
 
 
 
-def ORM_filter_joining_year(request):
+def Query_116(request):
     _year = 2022
 
     if request.method == "POST":
@@ -537,6 +608,8 @@ def ORM_filter_joining_year(request):
             'SQL_querry': teacher_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যাদের Joing Date {_year}, তাদের Record গুলো দেখানো হয়েছে ।",
             'ORM_querry': f"Teacher.objects.filter(joiningDate__year = {_year}))",
+
+            'query': Query_Code.objects.get( query_no = 'Query_116' ),
         }    
     return render(request, 'Result/teacher.html', data)
 
@@ -546,7 +619,7 @@ def ORM_filter_joining_year(request):
 
 
 
-def ORM_filter_joining_from_to(request):
+def Query_117(request):
     _from = 2010
     _to   = 2022
 
@@ -572,6 +645,8 @@ def ORM_filter_joining_from_to(request):
             'SQL_querry': teacher_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যাদের Joing date {_from} থেকে {_to}, তাদের Record গুলোকে দেখাবে।",
             'ORM_querry': f"Teacher.objects.filter(joiningDate__year__range = ({_from}, {_to}))",
+
+            'query': Query_Code.objects.get( query_no = 'Query_117' ),
         }    
     return render(request, 'Result/teacher.html', data)
 
@@ -580,7 +655,7 @@ def ORM_filter_joining_from_to(request):
 
 
 
-def ORM_filter_joining__month__gte(request):
+def Query_118(request):
     _month = 6
 
     if request.method == "POST":
@@ -600,7 +675,6 @@ def ORM_filter_joining__month__gte(request):
             FROM basic_query_teacher 
             WHERE MONTH(joiningDate) >= {_month}
         """
-
     teacher_data = Student.objects.raw(sql_query)
 
     data = {
@@ -608,6 +682,8 @@ def ORM_filter_joining__month__gte(request):
             'SQL_querry': teacher_data.query,
             'descripetion': f"সম্পূর্ন Table থেকে যাদের Joing Month {_month} এর সমান কিংবা বেশি ছিল তাদের Record গুলো দেখানো হয়েছে।",
             'ORM_querry': f"Teacher.objects.filter( joiningDate__month__gte = {_month} )",
+
+            'query': Query_Code.objects.get( query_no = 'Query_118' ),
         }    
     return render(request, 'Result/teacher.html', data)
 
@@ -615,7 +691,7 @@ def ORM_filter_joining__month__gte(request):
 
 
 
-def ORM_filter_joining__year_month_day(request):
+def Query_119(request):
     _year = 2010
     _month = 1
     _from = 1
@@ -660,6 +736,7 @@ def ORM_filter_joining__year_month_day(request):
                             Q(joiningDate__year={_year}) & Q(joiningDate__month={_month}) & Q(joiningDate__day__range=({_from}, {_to}))
                         )
                     """,
+            'query': Query_Code.objects.get( query_no = 'Query_119' ),
         }    
     return render(request, 'Result/teacher.html', data)
    
@@ -667,7 +744,7 @@ def ORM_filter_joining__year_month_day(request):
 
 
 
-def ORM_filter_joining_date_week(request):
+def Query_120(request):
     _week = 13    ## 1 week = 12 * 4 = 48 কিংবা তার ও বেশি week 
     if request.method == "POST":
         if int(request.POST.get('week')) <=0 and int(request.POST.get('week')) <= 49:
@@ -696,6 +773,8 @@ def ORM_filter_joining_date_week(request):
                             এর 1st week এর আগে যাদের Joint Date তাদের Record গুলো দেখাবে। 
                         """,
             'ORM_querry': f"Teacher.objects.filter( joiningDate__week__lte = {_week} ) ",
+
+            'query': Query_Code.objects.get( query_no = 'Query_120' ),
         }    
     return render(request, 'Result/teacher.html', data)
 

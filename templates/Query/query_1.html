@@ -33,7 +33,7 @@
                     <td class="fw-bold text-primary">values</td>
                     <td class="fw-bold">Student.objects.values('id', 'name', 'city', 'roll')</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_values' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_101' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
@@ -43,14 +43,14 @@
                     <td class="fw-bold text-danger">values, distinct</td>
                     <td class="fw-bold">Student.objects.values('city').distinct()</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_values_distinct' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_102' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
                 
                 <tr>
                     <td>3</td>
-                    <form action="{% url 'ORM_limit' %}" method="POST">
+                    <form action="{% url 'Query_103' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-success">limit</td>
                         <td class="fw-bold">Student.objects.all()[
@@ -70,14 +70,14 @@
                     <td class="fw-bold text-danger">order_by</td>
                     <td class="fw-bold">Student.objects.all().order_by('roll')</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_order_by' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_104' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
                 
                 <tr>
                     <td>5</td>
-                    <form action="{% url 'ORM_filter' %}" method="POST">
+                    <form action="{% url 'Query_105' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter</td>
                         <td class="fw-bold">Student.objects.filter(gender = "
@@ -97,7 +97,7 @@
 
                 <tr>
                     <td>6</td>
-                    <form action="{% url 'ORM_filter_gt_lt' %}" method="POST">
+                    <form action="{% url 'Query_106' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter(<, <=, >, >=)</td>
                         <td class="fw-bold">Student.objects.filter( age__
@@ -119,7 +119,7 @@
                 
                 <tr>
                     <td>7</td>
-                    <form action="{% url 'ORM_filter_and_or' %}" method="POST">
+                    <form action="{% url 'Query_107' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( &, | )</td>
                         <td class="fw-bold">Student.objects.filter( Q(age__gte =
@@ -143,7 +143,7 @@
 
                 <tr>
                     <td>8</td>
-                    <form action="{% url 'ORM_filter_between' %}" method="POST">
+                    <form action="{% url 'Query_108' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( range )</td>
                         <td class="fw-bold">Student.objects.filter( age__range=(
@@ -164,14 +164,14 @@
                     <td class="fw-bold text-danger">filter( range )</td>
                     <td class="fw-bold">Student.objects.filter( date_of_birth__range = ('2000-01-01' , '2023-12-30') )</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_range_date' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_109' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
 
                 <tr>
                     <td>10</td>
-                    <form action="{% url 'ORM_filter_not' %}" method="POST">
+                    <form action="{% url 'Query_110' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( ~ )</td>
                         <td class="fw-bold">
@@ -204,7 +204,7 @@
                     <td class="fw-bold text-danger">filter( &, | )</td>
                     <td class="fw-bold">Student.objects.filter( Q(city = 'Dhaka') & (Q(gender= 'Female') | Q(age__gte = 12)) )</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_and_or_2' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_111' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
@@ -214,7 +214,7 @@
                     <td class="fw-bold text-danger">filter( in )</td>
                     <td class="fw-bold">Student.objects.filter(city__in = ['Khulna', 'Chittagong'] )</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_in' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_112' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
@@ -224,7 +224,7 @@
                     <td class="fw-bold text-danger">filter( iexact )</td>
                     <td class="fw-bold">Student.objects.filter(name__iexact = 'rijon')</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_iexact' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_113' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
@@ -234,7 +234,7 @@
                     <td class="fw-bold text-danger">filter( contains )</td>
                     <td class="fw-bold">Student.objects.filter(name__contains = 'Md')</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_contains' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_114' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
@@ -244,14 +244,14 @@
                     <td class="fw-bold text-danger">filter( icontains )</td>
                     <td class="fw-bold">Student.objects.filter(name__icontains = 'ki')</td>
 
-                    <td><a class="btn btn-danger btn-sm" href="{% url 'ORM_filter_icontains' %}">
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'Query_115' %}">
                         <span class="glyphicon glyphicon-trash">Go</span></a>
                     </td>
                 </tr>
 
                 <tr>
                     <td>16</td>
-                    <form action="{% url 'ORM_filter_joining_year' %}" method="POST">
+                    <form action="{% url 'Query_116' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( year )</td>
                         <td class="fw-bold">Teacher.objects.filter(joiningDate__year =
@@ -267,7 +267,7 @@
 
                 <tr>
                     <td>17</td>
-                    <form action="{% url 'ORM_filter_joining_from_to' %}" method="POST">
+                    <form action="{% url 'Query_117' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( year__range )</td>
                         <td class="fw-bold">Teacher.objects.filter(joiningDate__year__range = (
@@ -285,7 +285,7 @@
 
                 <tr>
                     <td>18</td>
-                    <form action="{% url 'ORM_filter_joining__month__gte' %}" method="POST">
+                    <form action="{% url 'Query_118' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( month__gte )</td>
                         <td class="fw-bold">Teacher.objects.filter(joiningDate__month__gte =
@@ -301,7 +301,7 @@
                 
                 <tr>
                     <td>19</td>
-                    <form action="{% url 'ORM_filter_joining__year_month_day' %}" method="POST">
+                    <form action="{% url 'Query_119' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( year,month,day )</td>
                         <td class="fw-bold">
@@ -348,7 +348,7 @@
 
                 <tr>
                     <td>20</td>
-                    <form action="{% url 'ORM_filter_joining_date_week' %}" method="POST">
+                    <form action="{% url 'Query_120' %}" method="POST">
                         {% csrf_token %}
                         <td class="fw-bold text-danger">filter( week )</td>
                         <td class="fw-bold">Teacher.objects.filter( joiningDate__week__lte = 

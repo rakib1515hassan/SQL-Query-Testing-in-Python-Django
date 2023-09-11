@@ -23,21 +23,19 @@
     {% endblock css %}
   </head>
   <body>
-    <!-- Naveber Start -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid nav_container">
-          <a class="navbar-brand" href="{% url 'home' %}"><b>MrH-IT</b></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <li class="nav-item">
-                    <a class="nav-link {% block h_active %} {% endblock h_active %}" aria-current="page" href="{% url 'home' %}">Home</a>
-                </li>
-
-                <li class="nav-item dropdown">
+    <!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}"><b>MrH-IT</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto fw-bold" style="font-size: 20px;">
+              <li class="nav-item">
+                  <a class="nav-link {% block h_active %} {% endblock h_active %}" aria-current="page" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item dropdown {% block data_active %} {% endblock data_active %}">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Data
                   </a>
@@ -45,41 +43,34 @@
                       <li><a class="dropdown-item" href="{% url 'all_student' %}">All Student</a></li>
                       <li><a class="dropdown-item" href="{% url 'all_teacher' %}">All Teacher</a></li>
                   </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link {% block q1_active %} {% endblock q1_active %}" href="{% url 'Query_1' %}">Querry</a>
-                </li>
-
-
-
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Create
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'add_student' %}">Add Student</a></li>
-                        <li><a class="dropdown-item" href="{% url 'add_teacher' %}">Add Teacher</a></li>
-                    </ul>
-                </li>
-
-
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline search" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-    </nav>
-    <!-- Naveber End -->
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link {% block q1_active %} {% endblock q1_active %}" href="{% url 'Query_1' %}">Query</a>
+              </li>
+              <li class="nav-item dropdown {% block create_active %}  {% endblock create_active %}">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Create
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url 'add_student' %}">Add Student</a></li>
+                      <li><a class="dropdown-item" href="{% url 'add_teacher' %}">Add Teacher</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-light" type="submit">Search</button>
+          </form>
+      </div>
+  </div>
+</nav>
+<!-- Navbar End -->
 
 
 
 
 
-    <div class="container main">
+    <div class="container main" style="margin-top: 100px;">
         {% block body %}
   
   

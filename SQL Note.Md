@@ -99,7 +99,7 @@
 ## Create Database:
 
     > CREATE DATABASE database_name;
-    > CREATE DATABASE testdb;
+    > CREATE DATABASE testsqldb;
 
 shwo database
 

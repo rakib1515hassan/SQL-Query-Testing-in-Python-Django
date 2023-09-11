@@ -39,11 +39,26 @@
                 </tbody>
             </table>
         </div>
-        <h1 class="text-center" style="margin-top: 50px; color: #D25380;"><b><u>SQL Querry</u></b></h1>
-        <h4 class="text-center" style="margin-top: 20px;">{{SQL_querry}}</h4>
 
-        <h1 class="text-center" style=" color: #1a3acb; margin-top: 20px;"><b><u>ORM Querry</u></b></h1>
-        <h4 class="text-center" style="margin-top: 20px; margin-bottom: 100px;">{{ORM_querry}}</h4>
+        <div>
+            <h1 class="text-center" style="margin-top: 50px; color: #D25380;"><b><u>SQL Querry</u></b></h1>
+            <h4 class="text-center" style="margin-top: 20px;">{{SQL_querry}}</h4>
+            <div class="col-md-12" style="background-color: #2D2A2E;">
+                <div class="col-md-11 m-3">
+                    {{query.SQL_query|safe}}
+                </div>
+            </div>
+            
+
+            <h1 class="text-center" style=" color: #1a3acb; margin-top: 20px;"><b><u>ORM Querry</u></b></h1>
+            <h4 class="text-center" style="margin-top: 20px;">{{ORM_querry}}</h4>
+            <div class="col-md-12" style="background-color: #2D2A2E; margin-bottom: 100px;">
+                <div class="col-md-11 fw-bold m-3">
+                    {{query.ORM_query|safe}}
+                </div>
+            </div>
+        </div>
+
     </div>
 
 {% endblock body %}

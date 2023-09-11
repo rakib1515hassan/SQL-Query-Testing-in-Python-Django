@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize', # For Show Time and Date field in HTML template
-    'Basic_Query'
+    # 'tinymce',                # For Tiny Text Editor
+    'Basic_Query',
 ]
 
 MIDDLEWARE = [
