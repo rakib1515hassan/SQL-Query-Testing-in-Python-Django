@@ -1,63 +1,4 @@
-# Install Django Tinymce Text Editor In Django Project.
-
-Tinymce version = django-tinymce 3.6.1
-
-1) Installation:
-    
-        pip install django-tinymce
-
-2) Add tinymce to INSTALLED_APPS in settings.py for your project:
-
-        INSTALLED_APPS = (
-            'tinymce',
-        )
-
-3) Add tinymce.urls to urls.py for your project:
-
-        urlpatterns = patterns('',
-       
-                path('tinymce/', include('tinymce.urls')),
-       
-        )
-
-
-4) Add it on Modules
-
-        from tinymce.models import HTMLField
-
-        class Query_Code(models.Model):
-
-                title       = models.CharField( max_length=200, null=True, blank=True)
-                description = HTMLField()
-
-                def __str__(self):
-                        return self.title
-
-
-                                       
-                                       # Add Tinymce Editor in Admin Panel
-
-1) In Admin Panel add css and js files
-
-Example:- Media class এর মধ্যমে CSS and Js file add করা যায় Admin pannel এর জন্যে।
-
-        @admin.register(Query_Code)
-        class Query_BlogsAdmin(admin.ModelAdmin):
-            list_display = ('id', 'title')
-            ordering = ['-id']
-
-            class Media:        
-                css = {
-                     "all" : ("CSS/tiny.css",)
-                }
-
-                js = ("JS/tiny.js",)
-
-
-2) Javascript code এ বলে দিতে হবে textfields এর id
-
-
-document.addEventListener("DOMContentLoaded", function(event){
+    document.addEventListener("DOMContentLoaded", function(event){
 
         let sc = document.createElement("script")
         sc.setAttribute('src', 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js');
@@ -152,4 +93,4 @@ document.addEventListener("DOMContentLoaded", function(event){
         
         };
 
-});
+    });
