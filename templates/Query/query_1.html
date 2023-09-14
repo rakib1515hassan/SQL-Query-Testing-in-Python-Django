@@ -360,6 +360,94 @@
                         </td>
                     </form>    
                 </tr>
+
+                <tr>
+                    <td>21</td>
+                    <form action="{% url 'Query_121' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week_day )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__week_day =
+                            <select name="day" required >
+                                <option selected value="1">1 ( Sunday )</option>
+                                <option value="2">2 ( Monday )</option>
+                                <option value="3">3 ( Tuesday )</option>
+                                <option value="4">4 ( Wednesday )</option>
+                                <option value="5">5 ( Thursday )</option>
+                                <option value="6">6 ( Friday )</option>
+                                <option value="7">7 ( Saturday )</option>
+                            </select>
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>22</td>
+                    <form action="{% url 'Query_122' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week_day )</td>
+                        <td class="fw-bold">Student.objects.filter( date_of_birth__quarter =
+                            <select name="quarter" required >
+                                <option selected value="1">1 ( January, February, March )</option>
+                                <option value="2">2 ( April, May, Jun )</option>
+                                <option value="3">3 ( Jyly, Augest, Septamber )</option>
+                                <option value="4">4 ( October, November, December )</option>
+                            </select>
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>23</td>
+                    <form action="{% url 'Query_123' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week_day )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__time__lt = time(
+                            <input type="time" name="time" id="time" value="10:20">)
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>24</td>
+                    <form action="{% url 'Query_124' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week_day )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__hour__lt = time(
+                            <input type="time" id="hour" name="hour" value="09:00" min="00:00" max="23:00" step="3600" />)
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>25</td>
+                    <form action="{% url 'Query_125' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week_day )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__minute__lt = 
+                            <input type="time" id="minute" name="minute" value="09:30" min="09:00" max="09:59" />
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
                 
                 
 

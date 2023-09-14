@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize', # For Show Time and Date field in HTML template
-    # 'tinymce',                # For Tiny Text Editor
     'Basic_Query',
+
+
+
+
+    'django.contrib.humanize', # For Show Time and Date field in HTML template
+
+    # 'tinymce',           ## For Tiny Text Editor
+    'ckeditor',            ## For CKEditor Text Editor
+    'ckeditor_uploader',   ## For CKEditor Text Editor
 ]
 
 MIDDLEWARE = [
@@ -134,15 +141,22 @@ USE_TZ = True
 
 
 
+# STATIC_URL = 'static/'
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [STATIC_DIR, ]
+
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+
 STATIC_URL = 'static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [STATIC_DIR, ]
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
+MEDIA_URL = '/Ck_Items/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/Ck_Items')
 
 
 
@@ -151,3 +165,33 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+## NOTE For CKEditor----------------------------------------------------------------
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        # 'height': 300,
+        # 'width': 300,
+
+        'removePlugins':'exportpdf',  # এই Proparty ব্যবহার করে, আপনি কিছু Plagin বন্ধ করতে পারেন যা সম্পাদনা সংক্রান্ত 
+                                      # স্পেসিফিক ফিচার যোগ করে। "exportpdf" নামের Plagin বন্ধ করার ফলে, ব্যবহারকারীরা
+                                      #  ক্রমান্বয়ে PDF ডকুমেন্ট তৈরি করতে পারবেন না এবং এই Plagin এর সম্পর্কিত কোনো বিশেষ
+                                      #  সম্প্রদায়ের সমর্থন থাকবে না।
+
+        
+        'extraPlugins': ','.join(
+            [
+                'codesnippet',    ## For Code snippet added with your CkEditors
+                'widget',
+
+                'html5video',     ## For HTML5 video added with your CkEditors
+                'youtube',        ## For YouTube video added with your CkEditors     
+                
+            ]
+        ),       
+    },
+}

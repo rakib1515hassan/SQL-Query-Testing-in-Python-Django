@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", function(event){
         var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         tinymce.init({
-          selector: '#id_SQL_query',
+          selector: '#abc',
+          // selector: '#id_SQL_query',
           plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable export',
         //   tinydrive_token_provider: 'URL_TO_YOUR_TOKEN_PROVIDER',
         //   tinydrive_dropbox_app_key: 'YOUR_DROPBOX_APP_KEY',
@@ -104,7 +105,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 
         tinymce.init({
-            selector: '#id_ORM_query',
+            // selector: '#id_ORM_query',
+            selector: '#xyz',
             plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable export',
           //   tinydrive_token_provider: 'URL_TO_YOUR_TOKEN_PROVIDER',
           //   tinydrive_dropbox_app_key: 'YOUR_DROPBOX_APP_KEY',

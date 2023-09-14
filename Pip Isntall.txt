@@ -1,7 +1,9 @@
-1. To Create requirements:
+1. To Fix the Python Version
 
-    	pip3 freeze > requirements.txt 
+	## NOTE: If you use multiple Python Versions then to create a env you mastbe fix the python version
 
+ 	python -m virtualenv -p C:\Users\rakib\AppData\Local\Programs\Python\Python39\python.exe env
+ 	python -m virtualenv -p C:\Users\rakib\AppData\Local\Programs\Python\Python311\python.exe env
 
 2. pip Upgrade: 
 
@@ -11,6 +13,12 @@
 3. To Install requirements:
 
 	pip install -U -r requirements.txt
+
+
+4. To Create requirements.txt file:
+
+    	pip3 freeze > requirements.txt 
+
 
 
 -----------------------------( Dump All data )----------------------------------------

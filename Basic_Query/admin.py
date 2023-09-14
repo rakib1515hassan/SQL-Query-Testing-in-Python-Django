@@ -24,10 +24,11 @@ class Query_BlogsAdmin(admin.ModelAdmin):
     list_display = ('id', 'query_no', 'title')
     ordering = ['-query_no']
 
-    class Media:
-        css = {
-            "all" : ("CSS/tiny.css",)
-        }
+    ## NOTE For add CSS and Javascript in the admin panel (It use for TinyEditor)
+    # class Media:
+    #     css = {
+    #         "all" : ("CSS/tiny.css",)
+    #     }
 
-        js = ("JS/tiny.js",)
+    #     js = ("JS/tiny.js",)
 
