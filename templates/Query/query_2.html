@@ -1,0 +1,267 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %} Query | Time {% endblock title %}
+{% block q2_active %} active {% endblock q2_active %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'CSS\query.css' %}">
+<style>
+    .wi{
+        width: 60px;
+    }
+</style>
+{% endblock css %}
+<!------------------------------------- Contant Start ----------------------------------->
+{% block body %}
+<div class="col-md-12" style="margin-bottom: 100px;">
+    <h3 class="text-center" style="color: #3214a9;"><b>To see SQL Query click on Go button</b></h3>
+    <div class="table-responsive">
+        {% include 'message.html' %}
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead style="background-color: #8696FE; color: #f5f1f1;">
+                <tr>
+                    <th class="sn">No</th>
+                    <th >ORM Method</th>
+                    <th>Description</th>
+                    <th class="result">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>Query_116</td>
+                    <form action="{% url 'Query_116' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( year )</td>
+                        <td class="fw-bold">Teacher.objects.filter(joiningDate__year =
+                            <input type="number" class="wi" name="year" placeholder="year" value="2023" required>
+                            )
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>Query_117</td>
+                    <form action="{% url 'Query_117' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( year__range )</td>
+                        <td class="fw-bold">Teacher.objects.filter(joiningDate__year__range = (
+                            <input type="number" class="wi" name="year-from" placeholder="Year from" value="2015" required style="width: 90px;">
+                            ,
+                            <input type="number" class="wi" name="year-to" placeholder="Year to" value="2023" required style="width: 90px;">
+                            ))
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>Query_118</td>
+                    <form action="{% url 'Query_118' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( month__gte )</td>
+                        <td class="fw-bold">Teacher.objects.filter(joiningDate__month__gte =
+                            <input type="number" class="wi" name="month" placeholder="month" value="10" required>
+                            )
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+                
+                <tr>
+                    <td>Query_119</td>
+                    <form action="{% url 'Query_119' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( year,month,day )</td>
+                        <td class="fw-bold">
+                            Teacher.objects.filter(
+                                <div style="width: 500px;">
+                                    <span class="d-block ml-5">Q(joiningDate__year=
+                                        <input type="number" class="wi" name="year" placeholder="year" value="2022" required>)
+                                    </span>
+                                    <span class="d-block text-center">&</span>
+                                    <span class="d-block ml-5">Q(joiningDate__month=
+                                        <select name="month" required >
+                                            <!-- <option selected disabled>month</option> -->
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12" selected>December</option>
+                                        </select>)
+                                    </span>
+                                    <span class="d-block text-center">&</span>
+                                    <span class="d-block ml-5">Q(joiningDate__day__range=(
+                                        <input type="number" class="wi" name="day-from" placeholder="from" value="1" required>
+                                        , 
+                                        <input type="number" class="wi" name="day-to" placeholder="to" value="31" required>)
+                                        )</span>
+                                     
+                                </div>
+                            )
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+
+                <tr>
+                    <td>Query_120</td>
+                    <form action="{% url 'Query_120' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__week__lte = 
+                            <input type="number" class="wi" name="week" placeholder="week" value="13" required>
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>Query_121</td>
+                    <form action="{% url 'Query_121' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( week_day )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__week_day =
+                            <select name="day" required >
+                                <option selected value="1">1 ( Sunday )</option>
+                                <option value="2">2 ( Monday )</option>
+                                <option value="3">3 ( Tuesday )</option>
+                                <option value="4">4 ( Wednesday )</option>
+                                <option value="5">5 ( Thursday )</option>
+                                <option value="6">6 ( Friday )</option>
+                                <option value="7">7 ( Saturday )</option>
+                            </select>
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>Query_122</td>
+                    <form action="{% url 'Query_122' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( quarter )</td>
+                        <td class="fw-bold">Student.objects.filter( date_of_birth__quarter =
+                            <select name="quarter" required >
+                                <option selected value="1">1 ( January, February, March )</option>
+                                <option value="2">2 ( April, May, Jun )</option>
+                                <option value="3">3 ( Jyly, Augest, Septamber )</option>
+                                <option value="4">4 ( October, November, December )</option>
+                            </select>
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>Query_123</td>
+                    <form action="{% url 'Query_123' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( time )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__time__lt = time(
+                            <input type="time" name="time" id="time" value="10:20" placeholder="Time" required>)
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>Query_124</td>
+                    <form action="{% url 'Query_124' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( hour )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__hour__lt = time(
+                            <input type="time" id="hour" name="hour" value="09:00" min="00:00" max="23:00" step="3600" placeholder="Hour" required/>)
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+
+                <tr>
+                    <td>Query_125</td>
+                    <form action="{% url 'Query_125' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( minute )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__minute__lt = 
+                            <input type="time" id="minute" name="minute" value="09:30" min="09:00" max="09:59" placeholder="Minute" required/>
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+                
+                <tr>
+                    <td>Query_126</td>
+                    <form action="{% url 'Query_126' %}" method="POST">
+                        {% csrf_token %}
+                        <td class="fw-bold text-danger">filter( second )</td>
+                        <td class="fw-bold">Teacher.objects.filter( joiningDate__second__lt = 
+                            <input type="number" id="second" name="second" value="15" min="00" max="59" placeholder="Second" required/>
+                            )
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-sm">Go</button>
+                        </td>
+                    </form>    
+                </tr>
+                
+                
+
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock body %}
+<!-------------------------------------- Contant End ------------------------------------>
+
+
+
+{% block js %}
+
+
+
+{% endblock js %}

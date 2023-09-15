@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Basic_Query.urls')),
+    path('time/', include('Query_Time.urls')),
 
     path('ckeditor/', include('ckeditor_uploader.urls')), ## For Ck-editor, It is not a app.
 ]

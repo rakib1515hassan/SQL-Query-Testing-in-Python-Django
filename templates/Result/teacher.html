@@ -19,7 +19,7 @@
                         <th>Teacher ID</th>
                         <th>Salary</th>
                         <th>Address</th>
-                        <th>Joing Date <small class="d-block">YYYY-MM-DD, HH:MM</small></th>
+                        <th>Joing Date <small class="d-block">YYYY-MM-DD, HH:MM:SS</small></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +31,7 @@
                         <td>{{t.emplyee_id}}</td>
                         <td><span class="float-right">{{t.salary}}/-</span></td>
                         <td>{{t.city}}</td>
-                        <td>{{t.joiningDate|date:"Y-m-d, g:i A"}}</td>
+                        <td>{{ t.joiningDate|date:"Y-m-d, g:i:s A" }}</td>
                     </tr>
                     {% endfor %}
 

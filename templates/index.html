@@ -19,6 +19,7 @@
 
     <!-- For CkEditor to show the codesnippet color in html -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/devibeans.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css"> -->
 
     <link rel="stylesheet" href="{% static 'CSS\index.css' %}">
     {% block css %}
@@ -35,28 +36,49 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto fw-bold" style="font-size: 20px;">
-              <li class="nav-item">
-                  <a class="nav-link {% block h_active %} {% endblock h_active %}" aria-current="page" href="{% url 'home' %}">Home</a>
-              </li>
-              <li class="nav-item dropdown {% block data_active %} {% endblock data_active %}">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Data
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{% url 'all_student' %}">All Student</a></li>
-                      <li><a class="dropdown-item" href="{% url 'all_teacher' %}">All Teacher</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link {% block q1_active %} {% endblock q1_active %}" href="{% url 'Query_1' %}">Query</a>
-              </li>
+            <li class="nav-item">
+                <a class="nav-link {% block h_active %} {% endblock h_active %}" aria-current="page" href="{% url 'home' %}">Home</a>
+            </li>
+              
+            <li class="nav-item">
+                <a class="nav-link {% block q1_active %} {% endblock q1_active %}" href="{% url 'Query_1' %}">Query_1</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% block q2_active %} {% endblock q2_active %}" href="{% url 'Query_2' %}">Query_2</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% block q3_active %} {% endblock q3_active %}" href="{% url 'Query_1' %}">Query_3</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% block q4_active %} {% endblock q4_active %}" href="{% url 'Query_1' %}">Query_4</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% block q5_active %} {% endblock q5_active %}" href="{% url 'Query_1' %}">Query_5</a>
+            </li>
+
+            
+
+
+
+
+
+
+
+
               <li class="nav-item dropdown {% block create_active %}  {% endblock create_active %}">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Create
+                      Admin
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li><a class="dropdown-item" href="{% url 'add_student' %}">Add Student</a></li>
                       <li><a class="dropdown-item" href="{% url 'add_teacher' %}">Add Teacher</a></li>
+                      <li><a class="dropdown-item" href="{% url 'all_student' %}">All Student</a></li>
+                      <li><a class="dropdown-item" href="{% url 'all_teacher' %}">All Teacher</a></li>
+                      <li><a class="dropdown-item" href="">Add Query Post</a></li>
                   </ul>
               </li>
           </ul>
@@ -116,7 +138,10 @@
 
     <!-- For CkEditor -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script> -->
     <script>hljs.highlightAll();</script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script> -->
     <script src="{% static 'JS\main.js' %}"></script>
 
     {% block js %}

@@ -32,16 +32,7 @@ urlpatterns = [
     path('query-113/', views.Query_113, name='Query_113'),
     path('query-114/', views.Query_114, name='Query_114'),
     path('query-115/', views.Query_115, name='Query_115'),
-    path('query-116/', views.Query_116, name='Query_116'),
-    path('query-117/', views.Query_117, name='Query_117'),
-    path('query-118/', views.Query_118, name='Query_118'),
-    path('query-119/', views.Query_119, name='Query_119'),
-    path('query-120/', views.Query_120, name='Query_120'),
-    path('query-121/', views.Query_121, name='Query_121'),
-    path('query-122/', views.Query_122, name='Query_122'),
-    path('query-123/', views.Query_123, name='Query_123'),
-    path('query-124/', views.Query_124, name='Query_124'),
-    path('query-125/', views.Query_125, name='Query_125'),
+
 ]
 
 
